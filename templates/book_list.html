@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% block breadcrumb %}
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item active">Book list</li>
+    </ol>
+</nav>
+{% endblock breadcrumb %}
+
+{% block content %}
+
+<h1>This is the book list</h1>
+
+<hr />
+<div class="row">
+    {% for book in queryset %}
+    <div class="col-4">
+        <!-- Card -->
+        <div class="card">
+            <!-- Card content -->
+            <div class="card-body">
+
+                <!-- Title -->
+                <h4 class="card-title">{{ book.title }}</h4>
+                <h6 class="card-subtitle">{{ book.publication_date }}</h6>
+                <!-- Text -->
+                <p class="card-text">
+
+                    {% for author in book.authors.all %}
+                    <span>{{ author }}</span>
+                    {% if book.authors.count > 1 %}
+                    |
+                    {% endif %}
+                    {% endfor %}
+
+                </p>
+                <!-- Button -->
+                <a href="{{ book.get_absolute_url }}">{{ book }}</a>
+
+            </div>
+
+        </div>
+        <!-- Card -->
+    </div>
+</div>
+
+
+
+
+{% endfor %}
+
+{% endblock content %}

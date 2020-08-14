@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block breadcrumb %}
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{% url 'books:book-list' %}">Book list</a></li>
+        <li class="breadcrumb-item active">{{ book.title }}</li>
+    </ol>
+</nav>
+{% endblock breadcrumb %}
+
+{% block content %}
+<div class="row">
+    <main class="col-12 col-md-4">
+        {% include 'book_snippit.html' with book=book %}
+    </main>
+    <aside class="col-12 col-md-8">
+        <div class="bg-light py-3 px-5">
+            Chapters
+        </div>
+        <ul class="list-group list-group-flush">
+            {% for chapter in book.chapter_set.all %}
+
+            <li class="list-group-item"><a href="{{ chapter.get_absolute_url }}">{{ chapter.chapter_number }}.
+                    {{ chapter.title }}</a></li>
+
+            {% endfor %}
+        </ul>
+    </aside>
+</div>
+{% endblock content %}
